@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         Leetcode 优化
+// @name         Leetcode 助手
 // @namespace    http://tampermonkey.net/
 // @version      0.1.0
 // @description  禁英文站跳中文站，增加中英站互跳按钮，中文站剪切板净化，删除中英站一些广告
 // @author       Hunter Hwang
-// @lisence      MIT
+// @license      MIT
 // @match        https://leetcode.com/*
 // @match        https://leetcode.com/problems/*
 // @match        https://leetcode-cn.com/problems/*
