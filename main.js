@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         Leetcode 助手
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
+// @homepageURL   https://github.com/h-hg/leetcode-optimization
+// @supportURL    https://github.com/h-hg/leetcode-optimization/issues
+// @version      0.1.1
 // @description  禁英文站跳中文站，增加中英站互跳按钮，中文站剪切板净化，删除中英站一些广告
 // @author       Hunter Hwang
 // @license      MIT
 // @match        https://leetcode.com/*
 // @match        https://leetcode.com/problems/*
-// @match        https://leetcode-cn.com/problems/*
+// @match        https://leetcode.cn/problems/*
 // @icon         https://assets.leetcode.com/static_assets/public/icons/favicon-192x192.png
 // @run-at       document-idle
 // @grant        GM_addStyle
@@ -36,7 +38,7 @@
     }
   }
   function isCNSite() {
-    return location.hostname === 'leetcode-cn.com'
+    return location.hostname === 'leetcode.cn'
   }
   function getProblemName() {
     var tmp = location.href.match(/problems\/([^\/]+)/);
@@ -69,7 +71,7 @@
   }
   function banAutoJump2Cn() {
     GM_webRequest([
-      {selector: 'https://assets.leetcode-cn.com/*', action: 'cancel'},
+      {selector: 'https://assets.leetcode.cn/*', action: 'cancel'},
     ], function (info, message, details) {
       console.log(info, message, details);
     });
@@ -157,7 +159,7 @@
       })
     })
   }
-  // prevent auto jump to leetcode-cn.com
+  // prevent auto jump to leetcode.cn
   if(!isCNSite()) {
     banAutoJump2Cn();
   }
