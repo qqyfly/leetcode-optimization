@@ -3,8 +3,8 @@
 // @namespace    http://tampermonkey.net/
 // @homepageURL   https://github.com/h-hg/leetcode-optimization
 // @supportURL    https://github.com/h-hg/leetcode-optimization/issues
-// @version      0.1.1
-// @description  禁英文站跳中文站，增加中英站互跳按钮，中文站剪切板净化，删除中英站一些广告
+// @version      0.1.2
+// @description  禁英文站跳中文站，增加中英站互跳按钮，中文站剪切板净化，删除中英站一些广告,适配新版本
 // @author       Hunter Hwang
 // @license      MIT
 // @match        https://leetcode.com/*
@@ -45,11 +45,11 @@
     return (tmp != null && tmp[1] != 'all') ? tmp[1] : null;
   }
   function hasProblemId() {
-    var tag = isCNSite() ? 'h4[data-cypress="QuestionTitle"] a' : 'div[data-cy="question-title"]';
+    var tag = isCNSite() ? 'h4[data-cypress="QuestionTitle"] a' : 'div[class="h-full"] span';
     return document.querySelector(tag) != null;
   }
   function getProblemId() {
-    var tag = isCNSite() ? 'h4[data-cypress="QuestionTitle"] a' : 'div[data-cy="question-title"]';
+    var tag = isCNSite() ? 'h4[data-cypress="QuestionTitle"] a' : 'div[class="h-full"] span';
     return document.querySelector(tag).textContent.match('([0-9]+)')[1];
   }
   function getOthterLangUrl() {
@@ -83,6 +83,7 @@
     return template.content.firstChild;
   }
   function getMenuItems() {
+
       var name = getProblemName(), id = getProblemId();
       return {
         [isCNSite() ? 'English' : '中文'] : getOthterLangUrl(),
@@ -143,8 +144,14 @@
       </div>
     `);
     var menu = wrapper.querySelector('.menu');
+
+    document.body.appendChild(wrapper);
+
+
     waitFor(hasProblemId, () => {
+
       var items = getMenuItems();
+
       for(var key in items) {
         var link = document.createElement('a');
         link.appendChild(document.createTextNode(key));
@@ -158,6 +165,7 @@
         menu.firstElementChild.href = getOthterLangUrl();
       })
     })
+
   }
   // prevent auto jump to leetcode.cn
   if(!isCNSite()) {
