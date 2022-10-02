@@ -190,7 +190,7 @@
       };
     `);
   }
-
+ 
   // problems navigator
   let problemName = getProblemName();
   if(problemName != null) {
